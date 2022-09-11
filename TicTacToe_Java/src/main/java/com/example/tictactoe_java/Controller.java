@@ -1,13 +1,10 @@
 package com.example.tictactoe_java;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.shape.Polygon;
 
 import java.util.ArrayList;
 
@@ -20,35 +17,25 @@ public class Controller {
 
     @FXML
     protected void onHelloButtonClick() {
-        //double sizeX = grid.getScaleX()/3, sizeY = grid.getScaleY()/3;
-        grid.setPrefHeight(300);
-        grid.setPrefWidth(300);
+        grid.setMaxHeight(400);
+        grid.setMaxWidth(400);
 
-        //grid.setScaleX(1);
-        //grid.setScaleY(1);
+        ColumnConstraints column = new ColumnConstraints();
+        column.setPercentWidth(33);
+        RowConstraints row = new RowConstraints();
+        row.setPercentHeight(33);
+
+        for(int i = 0; i < 3; i++){
+            grid.getColumnConstraints().addAll(column);
+            grid.getRowConstraints().addAll(row);
+        }
 
         for(int i = 0; i < 9; i++){
             final Button newButton = new Button();
-            //newButton.setShape(new Polygon(1,1,1,1));
-           //newButton.setStyle("-fx-base: purple;");
-            //newButton.setScaleY(1);
-            //newButton.setPrefWidth(100);
-            //newButton.setPrefHeight(100);
-           // newButton.setMaxWidth(Double.MAX_VALUE);
-           // newButton.setMaxHeight(Double.MAX_VALUE);
-
-
-            RowConstraints rowConstraint = new RowConstraints();
-            rowConstraint.setPercentHeight(300);
-
-            ColumnConstraints colConstraint = new ColumnConstraints();
-            colConstraint.setPercentWidth(300);
-
-                grid.getColumnConstraints().add(colConstraint);
-                grid.getRowConstraints().add(rowConstraint);
-
-
-            newButton.setOnAction(e -> actionHandler(e, newButton));
+            final int j = i;
+            newButton.setOnAction(e -> actionHandler(newButton, j));
+            newButton.setMaxHeight(Double.MAX_VALUE);
+            newButton.setMaxWidth(Double.MAX_VALUE);
 
             if(btnMatrix.size() <= i/3){
                 btnMatrix.add(new ArrayList<>());
@@ -59,7 +46,7 @@ public class Controller {
         }
     }
 
-    private void actionHandler(ActionEvent e, Button btn){
-        btn.setText("Clicked");
+    private void actionHandler(Button btn, int i){
+        btn.setText("Clicked " + i);
     }
 }
