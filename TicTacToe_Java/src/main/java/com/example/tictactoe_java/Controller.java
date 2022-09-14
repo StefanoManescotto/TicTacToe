@@ -1,7 +1,6 @@
 package com.example.tictactoe_java;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -13,12 +12,17 @@ public class Controller {
     @FXML
     private GridPane grid;
 
-    private ArrayList<ArrayList<Button>> btnMatrix = new ArrayList<>();
+    private ArrayList<ArrayList<TTTButton>> btnMatrix = new ArrayList<>();
+    private GameManager gManager;
+
+    @FXML
+    public void initialize() {
+        gManager = new GameManager();
+    }
 
     @FXML
     protected void onHelloButtonClick() {
-        grid.setMaxHeight(400);
-        grid.setMaxWidth(400);
+        grid.prefHeightProperty().bind(grid.prefWidthProperty()); //Used for have better proportions when resizing the window
 
         ColumnConstraints column = new ColumnConstraints();
         column.setPercentWidth(33);
@@ -31,22 +35,29 @@ public class Controller {
         }
 
         for(int i = 0; i < 9; i++){
-            final Button newButton = new Button();
-            final int j = i;
-            newButton.setOnAction(e -> actionHandler(newButton, j));
-            newButton.setMaxHeight(Double.MAX_VALUE);
-            newButton.setMaxWidth(Double.MAX_VALUE);
-
             if(btnMatrix.size() <= i/3){
                 btnMatrix.add(new ArrayList<>());
             }
-            btnMatrix.get(i/3).add(newButton);
+            btnMatrix.get(i/3).add(createNewButton(i%3, i/3));
 
             grid.add(btnMatrix.get(i/3).get(i%3), i/3, i%3);
         }
     }
 
-    private void actionHandler(Button btn, int i){
-        btn.setText("Clicked " + i);
+
+    private TTTButton createNewButton(int x, int y){
+        final TTTButton newBtn = new TTTButton(x, y);
+        final int j = x;
+        newBtn.setOnAction(e -> actionHandler(newBtn, j));
+        newBtn.setMaxHeight(Double.MAX_VALUE);
+        newBtn.setMaxWidth(Double.MAX_VALUE);
+
+        //newButton.fontProperty().bind(newButton.);
+        //newButton.setStyle(String.format("-fx-font-size: %dpx;", (int)(0.45 * 70)));
+        return newBtn;
+    }
+
+    private void actionHandler(TTTButton btn, int i){
+        gManager.buttonPress(btn, btnMatrix);
     }
 }

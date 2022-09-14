@@ -11,7 +11,7 @@ public class Application extends javafx.application.Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("TicTacToe-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 720, 720);
-        stage.setTitle("TicTacToe!");
+        stage.setTitle("TicTacToe");
         stage.setScene(scene);
         stage.show();
     }
