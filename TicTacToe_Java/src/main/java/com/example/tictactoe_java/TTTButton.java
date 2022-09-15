@@ -29,7 +29,7 @@ public class TTTButton extends Button {
     }
 
     public void setClickedBy(int clickedBy) {
-        if(clickedBy <= 0 || clickedBy >= 3){
+        if(clickedBy <= -2 || clickedBy >= 3){
             return;
         }
         this.clickedBy = clickedBy;
