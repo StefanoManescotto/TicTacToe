@@ -53,7 +53,7 @@ public class GameManager {
 
     private boolean checkWinDiagonal1(int x, int y, ArrayList<ArrayList<TTTButton>> m){
         for(int i = 0; i < m.size(); i++){
-            if(m.get(i).get(i).getClickedBy() < 0 &&
+            if(m.get(i).get(i).getClickedBy() < 0 ||
                     m.get(i).get(i).getClickedBy() != m.get(x).get(y).getClickedBy()){
                 return false;
             }
@@ -63,7 +63,7 @@ public class GameManager {
 
     private boolean checkWinDiagonal2(int x, int y, ArrayList<ArrayList<TTTButton>> m){
         for(int i = 0; i < m.size(); i++){
-            if(m.get(m.size() - 1 - i).get(i).getClickedBy() < 0 &&
+            if(m.get(m.size() - 1 - i).get(i).getClickedBy() < 0 ||
                     m.get(m.size() - 1 - i).get(i).getClickedBy() != m.get(x).get(y).getClickedBy()){
                 return false;
             }
