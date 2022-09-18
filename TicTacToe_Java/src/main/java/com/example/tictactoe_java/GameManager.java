@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class GameManager {
     private int turn = 1; //1 -> player 1 | 2 -> player 2
+    private int nBtnPressed = 0;
 
     /**
      * Method invoked when a game button has been pressed and set the right text based on the turn
@@ -19,17 +20,15 @@ public class GameManager {
         if(turn == 1){
             btn.setText("X");
             turn = 2;
-
             return checkWin(btn.getX(), btn.getY(), btnMatrix) ? 3 : 1;
         }else{
             btn.setText("O");
-
             turn = 1;
             return checkWin(btn.getX(), btn.getY(), btnMatrix) ? 4 : 2;
         }
     }
 
-    private boolean checkWin(int x, int y, ArrayList<ArrayList<TTTButton>> mtx){
+    public boolean checkWin(int x, int y, ArrayList<ArrayList<TTTButton>> mtx){
         return checkWinH(x, y, mtx) || checkWinV(x, y, mtx) || checkWinDiagonal1(x, y, mtx) || checkWinDiagonal2(x, y, mtx);
     }
 
@@ -83,5 +82,21 @@ public class GameManager {
             return;
         }
         this.turn = turn;
+    }
+
+    public ArrayList<ArrayList<TTTButton>> getBtnMatrix() {
+        return null;
+    }
+
+    public int incrementBtnPressed(){
+        return nBtnPressed++;
+    }
+
+    public int getnBtnPressed(){
+        return nBtnPressed;
+    }
+
+    public void resetBtnPressed(){
+        nBtnPressed = 0;
     }
 }
